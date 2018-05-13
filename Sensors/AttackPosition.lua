@@ -33,7 +33,7 @@ return function(x, y, z)
 			local unitID = units[i]
 			
 			local order = {}
-			order[1] = CMD.ATTACK
+			order[1] = CMD.MOVE
 			order[2] = { x, y, z }
 			order[3] = {}
 			

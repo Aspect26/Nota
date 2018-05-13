@@ -163,6 +163,13 @@
 			"x": 228,
 			"y": 10
 		},
+		"vDlqBYZIqnl5bG9hsgh6YWKzThlgh8NN": {
+			"height": 72,
+			"title": "echo",
+			"width": 230,
+			"x": 2425,
+			"y": -19
+		},
 		"yMh38MzoBuZl6XW7oVgZwf4dEnNQYJAG": {
 			"height": 105,
 			"title": "store",
@@ -320,6 +327,18 @@
 								"value": "store"
 							} ],
 							"scriptName": "store"
+						}, {
+							"children": [],
+							"id": "vDlqBYZIqnl5bG9hsgh6YWKzThlgh8NN",
+							"nodeType": "luaCommand",
+							"parameters": [ {
+								"name": "msg",
+								"value": "unsafeHill.enemy.height"
+							}, {
+								"name": "scriptName",
+								"value": "echo"
+							} ],
+							"scriptName": "echo"
 						} ],
 						"id": "fny3LtTiFUw1VTAoHWsCd4f4iAhz15NO",
 						"nodeType": "sequence",
