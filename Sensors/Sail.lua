@@ -24,7 +24,7 @@ end
 
 -- speedups
 local spGetWind = Spring.GetWind
-local spGiveOrder = Spring.GiveOrderToUnit
+local spGiveOrders = Spring.GiveOrderArrayToUnitArray
 local spGetPosition = Spring.GetUnitPosition
 local spGetTooltip = Spring.GetUnitTooltip
 
@@ -46,20 +46,33 @@ function commanderStrategy(unitID)
 	moveLocationY = commanderPosY + windDirY * 200
 	moveLocationZ = commanderPosZ + windDirZ * 200
 	
-	spGiveOrder(commanderID, CMD.MOVE, { moveLocationX, moveLocationY, moveLocationZ }, {})
+	return CMD.MOVE, { moveLocationX, moveLocationY, moveLocationZ }
 end
 
 function otherStrategy(unitID) 
-	spGiveOrder(unitID, CMD.GUARD, { commanderID }, {})
+	return CMD.GUARD, { commanderID }
 end
 
 -- @description return current wind statistics
 return function()
 	if #units > 0 then
+		local unitIDs = {}
+		local orders = {}
+		
 		for i=1, #units do
 			local unitID = units[i]
 			local unitStrategy = getUnitStrategy(unitID)
-			unitStrategy(unitID)
+			local command, params = unitStrategy(unitID)
+			
+			local order = {}
+			order[1] = command
+			order[2] = params
+			order[3] = {}
+			
+			unitIDs[i] = unitID
+			orders[i] = order
 		end
+		
+		spGiveOrders(unitIDs, orders)
 	end
 end
