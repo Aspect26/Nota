@@ -13,7 +13,6 @@ VFS.Include(modules.attach.data.path .. modules.attach.data.head) -- attach lib 
 attach.Module(modules, "message") -- communication backend load
 
 local EVAL_PERIOD_DEFAULT = 0 -- acutal, no caching
-local commanderID = 0
 
 function getInfo()
 	return {
@@ -24,25 +23,10 @@ end
 -- speedups
 local spGiveOrders = Spring.GiveOrderArrayToUnitArray
 
-return function(attackedUnit)
-	if #units > 0 then
-		local unitIDs = {}
-		local orders = {}
-		
-		for i=1, #units do
-			local unitID = units[i]
-			
-			local order = {}
-			order[1] = CMD.ATTACK
-			order[2] = { attackedUnit }
-			order[3] = {}
-			
-			unitIDs[i] = unitID
-			orders[i] = order
-		end
-		
-		spGiveOrders(unitIDs, orders)
+return function(unitID)
+	if unitID ~= nil then
+		return Spring.GetUnitPosition(unitID)
+	else
+		return 0, 0, 0
 	end
-	
-	return nil
 end

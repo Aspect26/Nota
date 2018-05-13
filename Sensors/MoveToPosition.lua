@@ -25,19 +25,32 @@ end
 local spGiveOrders = Spring.GiveOrderArrayToUnitArray
 
 return function(x, y, z)
+	if y == nil then
+		if x == nil then
+			return nil
+		else
+			x, y, z = Spring.GetUnitPosition(x)
+		end
+	end
 	if #units > 0 then
 		local unitIDs = {}
 		local orders = {}
 		
 		for i=1, #units do
 			local unitID = units[i]
-			local unitPosition = Spring.GetUnitPosition(unitID)
-			local direction = { x = x - unitPosion.bpx, y = y - unitPosition.bpy, z = z - unitPosition.bpz }
+			local unitX, unitY, unitZ = Spring.GetUnitPosition(unitID)
+			local direction = { x = x - unitX, y = y - unitY, z = z - unitZ }
 			local directionLength = math.sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z)
+			if directionLength < 100 then
+				return nil
+			end
+			local directionFactor = 100;
+			direction = { x = (direction.x / directionLength) * directionFactor, y = (direction.y / directionLength) * directionFactor, z = (direction.z / directionLength) * directionFactor }
+			directionLength = math.sqrt(direction.x * direction.x + direction.y * direction.y + direction.z * direction.z)
 			
 			local order = {}
 			order[1] = CMD.MOVE
-			order[2] = { x, y, z }
+			order[2] = { unitX + direction.x, unitY + direction.y, unitZ + direction.z }
 			order[3] = {}
 			
 			unitIDs[i] = unitID
