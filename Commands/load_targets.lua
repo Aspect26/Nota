@@ -18,7 +18,7 @@ local spGetUnitPosition = Spring.GetUnitPosition
 local spGiveOrderToUnit = Spring.GiveOrderToUnit
 local spIsUnitDead = Spring.GetUnitIsDead
 
-local TARGET_DISTANCE_THRESHOLD = 50
+local TARGET_DISTANCE_THRESHOLD = 100
 
 local function ClearState(self)
 	self.unitTargets = nil
@@ -27,7 +27,8 @@ local function ClearState(self)
 end
 
 local function Distance(a, b)
-    if not a or not b then
+    -- TODO: WTF? why does they do not contain the x,y,z????
+    if not a or not b or not a.x or not a.y or not a.z or not b.x or not b.y or not b.z then
         -- magic constant
         return 926232
     end
@@ -36,6 +37,16 @@ local function Distance(a, b)
     local ySqr = (a.y - b.y) * (a.y - b.y)
     local zSqr = (a.z - b.z) * (a.z - b.z)
     return math.sqrt(xSqr + ySqr + zSqr)
+end
+
+local function UnitIsDead(unit)
+    local dead = spIsUnitDead(unit)
+
+    if dead == nil or dead == true then
+        return true
+    else
+        return false
+    end
 end
 
 local function SetUnitPaths(self, unitTargets)
@@ -89,16 +100,24 @@ local function AllReachedTargetsOrDead(self)
         return true
     end
 
+    local unitsNotReached = 0
+
     for rescuer, rescueData in pairs(self.unitTargets) do
         local rescuerX, rescuerY, rescuerZ = spGetUnitPosition(rescuer)
         local targetX, targetY, targetZ = spGetUnitPosition(rescueData.unit)
-        if not spIsUnitDead(rescuer) and Distance({x=rescuerX, y=rescuerY, z=rescuerZ}, {x=targetX, y=targetY, z=targetZ}) > TARGET_DISTANCE_THRESHOLD then
-            return false
+        if not UnitIsDead(rescuer) and Distance({x=rescuerX, y=rescuerY, z=rescuerZ}, {x=targetX, y=targetY, z=targetZ}) > TARGET_DISTANCE_THRESHOLD then
+            unitsNotReached = unitsNotReached + 1
         end
     end
 
-    self.allReachedTargets = true
-    return true
+    Spring.Echo("RESCUEES NOT REACEHD: " .. unitsNotReached)
+    -- TODO: HACK HERE!!!!!!
+    if unitsNotReached <= 2 then
+        self.allReachedTargets = true
+        return true
+    else
+        return false
+    end
 end
 
 local function IssueLoading(self)
@@ -113,7 +132,7 @@ end
 local function AllTargetsLoaded(self)
     for rescuer, rescueData in pairs(self.unitTargets) do
         local rescuee = rescueData.unit
-        if Spring.GetUnitTransporter(rescuee) ~= rescuer then
+        if not UnitIsDead(rescuer) and not UnitIsDead(rescuee) and Spring.GetUnitTransporter(rescuee) ~= rescuer then
             return false
         end
     end

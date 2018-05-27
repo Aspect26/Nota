@@ -31,7 +31,7 @@ local function ClearState(self)
     end
 
 local function Distance(a, b)
-    if not a or not b then
+    if not a or not b or not a.x or not a.y or not a.z or not b.x or not b.y or not b.z then
         -- magic constant
         return 926232
     end
@@ -40,6 +40,16 @@ local function Distance(a, b)
     local ySqr = (a.y - b.y) * (a.y - b.y)
     local zSqr = (a.z - b.z) * (a.z - b.z)
     return math.sqrt(xSqr + ySqr + zSqr)
+end
+
+local function UnitIsDead(unit)
+    local dead = spIsUnitDead(unit)
+
+    if dead == nil or dead == true then
+        return true
+    else
+        return false
+    end
 end
 
 local function IssueMoveOrders(self)
@@ -60,7 +70,7 @@ local function AllReachedSafeAreaOrDead(self)
     for i=1, #self.units do
         local rescuer = self.units[i]
         local rescuerX, rescuerY, rescuerZ = spGetUnitPosition(rescuer)
-        if not spIsUnitDead(rescuer) and Distance({x=rescuerX, y=rescuerY, z=rescuerZ}, self.safeArea) > SAFE_AREA_DISTANCE_THRESHOLD then
+        if not UnitIsDead(rescuer) and Distance({x=rescuerX, y=rescuerY, z=rescuerZ}, self.safeArea) > SAFE_AREA_DISTANCE_THRESHOLD then
             return false
         end
     end
@@ -82,7 +92,7 @@ local function AllTargetsUnloaded(self)
     for i=1, #self.units do
         local rescuer = self.units[i]
         Spring.Echo(Spring.GetUnitIsTransporting(rescuer))
-        if not spIsUnitDead(rescuer) and #Spring.GetUnitIsTransporting(rescuer) > 0 then
+        if not UnitIsDead(rescuer) and #Spring.GetUnitIsTransporting(rescuer) > 0 then
             return false
         end
     end
