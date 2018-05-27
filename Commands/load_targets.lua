@@ -141,6 +141,9 @@ local function AllTargetsLoaded(self)
 end
 
 local function Process(self, unitTargets)
+    SetUnitPaths(self, unitTargets)
+
+    --[[ TODO: This block is not required since the pathfinding is not implemented yet
     if not self.unitTargets then
         SetUnitPaths(self, unitTargets)
         IssueMoveOrders(self)
@@ -150,6 +153,7 @@ local function Process(self, unitTargets)
     if not AllReachedTargetsOrDead(self) then
         return RUNNING
     end
+    ]]
 
     if not self.issuedLoading then
         IssueLoading(self)

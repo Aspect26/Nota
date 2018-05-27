@@ -21,6 +21,7 @@ local spGiveOrderToUnit = Spring.GiveOrderToUnit
 local spIsUnitDead = Spring.GetUnitIsDead
 
 local SAFE_AREA_DISTANCE_THRESHOLD = 500 -- TODO: this can bea read from the mission info too!
+local UNLOADING_WAIT_CYCLES = 4
 
 local function ClearState(self)
     self.units = nil
@@ -28,7 +29,8 @@ local function ClearState(self)
     self.issuedMoveToSafeArea = false
     self.allReachedSafeArea = false
     self.issuedUnloading = false
-    end
+    self.waitedForUnloading = 0
+end
 
 local function Distance(a, b)
     if not a or not b or not a.x or not a.y or not a.z or not b.x or not b.y or not b.z then
@@ -110,6 +112,11 @@ local function Process(self)
         return RUNNING
     end
 
+    if self.waitedForUnloading <= UNLOADING_WAIT_CYCLES then
+        self.waitedForUnloading = self.waitedForUnloading + 1
+        return RUNNING
+    end
+    
     if not self.issuedUnloading then
         IssueUnloading(self)
         return RUNNING
