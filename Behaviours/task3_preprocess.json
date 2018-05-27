@@ -1,0 +1,42 @@
+{
+	"additionalNodes": [],
+	"additionalParameters": {
+		"root": {
+			"height": 130,
+			"width": 216
+		}
+	},
+	"inputs": [],
+	"outputs": [ {
+		"name": "mapGraph"
+	} ],
+	"properties": {
+		"WNXajph3BPv6UPn8ZsaFQ4w6Nnx1U6Rv": {
+			"height": 94,
+			"title": "store",
+			"width": 246,
+			"x": 311,
+			"y": 13
+		}
+	},
+	"roles": [ {
+		"categories": [],
+		"name": "Role 0"
+	} ],
+	"root": {
+		"children": [],
+		"id": "WNXajph3BPv6UPn8ZsaFQ4w6Nnx1U6Rv",
+		"nodeType": "luaCommand",
+		"parameters": [ {
+			"name": "var",
+			"value": "mapGraph"
+		}, {
+			"name": "value",
+			"value": "nota_FLI.GetMapGraph()"
+		}, {
+			"name": "scriptName",
+			"value": "store"
+		} ],
+		"scriptName": "store"
+	}
+}

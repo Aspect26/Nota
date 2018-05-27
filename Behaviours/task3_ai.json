@@ -1,0 +1,19 @@
+{
+	"additionalNodes": [],
+	"additionalParameters": {
+		"root": {
+			"height": 108,
+			"width": 220
+		}
+	},
+	"inputs": [ {
+		"command": "Variable",
+		"name": "mapGraph"
+	} ],
+	"outputs": [],
+	"properties": [],
+	"roles": [ {
+		"categories": [],
+		"name": "Role 0"
+	} ]
+}

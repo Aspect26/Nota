@@ -13,8 +13,8 @@
 			"height": 94,
 			"title": "store",
 			"width": 1044,
-			"x": 1942,
-			"y": 115
+			"x": 2166,
+			"y": 147
 		},
 		"5p00EfT6dOfyof86OSlBDpRgbxdgdFlM": {
 			"height": 94,
@@ -51,6 +51,13 @@
 			"x": 1763,
 			"y": -285
 		},
+		"EIVguNa6T1I4n0SjFzya3i3n0wTgzsIr": {
+			"height": 54,
+			"title": "success",
+			"width": 132,
+			"x": 2159,
+			"y": 245
+		},
 		"EvDxkvND5nqoWUVzDCZOfzaURUkOgnhr": {
 			"height": 94,
 			"title": "store",
@@ -61,9 +68,9 @@
 		"Ib0QIB5BdnYeW9Oo0uzN5ChtZNMQisEX": {
 			"height": 90,
 			"title": "luaCondition",
-			"width": 194,
-			"x": 1438,
-			"y": 127
+			"width": 206,
+			"x": 1435,
+			"y": 123
 		},
 		"J90rKU61xwwlKAvdTe1ZzeGsV8yeBUZo": {
 			"height": 94,
@@ -113,6 +120,13 @@
 			"width": 180,
 			"x": 849,
 			"y": -12
+		},
+		"fl1Nvlt1on4A65TERx8msMAwcexeDEpV": {
+			"height": 90,
+			"title": "luaCondition",
+			"width": 194,
+			"x": 1936,
+			"y": 142
 		},
 		"fny3LtTiFUw1VTAoHWsCd4f4iAhz15NO": {
 			"height": 60,
@@ -396,20 +410,36 @@
 						} ],
 						"scriptName": "store"
 					}, {
-						"children": [],
-						"id": "2aXKdO7emBpFicK4yYMCwxVX8MPMVYzt",
-						"nodeType": "luaCommand",
-						"parameters": [ {
-							"name": "var",
-							"value": "moveResult"
+						"children": [ {
+							"children": [],
+							"id": "2aXKdO7emBpFicK4yYMCwxVX8MPMVYzt",
+							"nodeType": "luaCommand",
+							"parameters": [ {
+								"name": "var",
+								"value": "moveResult"
+							}, {
+								"name": "value",
+								"value": "nota_FLI.MoveToPosition(hills.unsafe[currentUnsafeHill].enemy.x, hills.unsafe[currentUnsafeHill].enemy.height, hills.unsafe[currentUnsafeHill].enemy.y)"
+							}, {
+								"name": "scriptName",
+								"value": "store"
+							} ],
+							"scriptName": "store"
 						}, {
-							"name": "value",
-							"value": "nota_FLI.MoveToPosition(hills.unsafe[currentUnsafeHill].enemy.x, hills.unsafe[currentUnsafeHill].enemy.height, hills.unsafe[currentUnsafeHill].enemy.y)"
-						}, {
-							"name": "scriptName",
-							"value": "store"
+							"children": [],
+							"id": "EIVguNa6T1I4n0SjFzya3i3n0wTgzsIr",
+							"nodeType": "success",
+							"parameters": []
 						} ],
-						"scriptName": "store"
+						"id": "fl1Nvlt1on4A65TERx8msMAwcexeDEpV",
+						"nodeType": "luaCondition",
+						"parameters": [ {
+							"name": "expression",
+							"value": "lastAttacker == nil"
+						}, {
+							"name": "repeat",
+							"value": "false"
+						} ]
 					} ],
 					"id": "OuJEcrSaHFoYB2WzeBOv5UNqUfTpGrO6",
 					"nodeType": "sequence",
