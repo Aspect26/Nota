@@ -130,14 +130,16 @@ local function IssueLoading(self)
 end
 
 local function AllTargetsLoaded(self)
+    local notLoadedCount = 0
     for rescuer, rescueData in pairs(self.unitTargets) do
         local rescuee = rescueData.unit
         if not UnitIsDead(rescuer) and not UnitIsDead(rescuee) and Spring.GetUnitTransporter(rescuee) ~= rescuer then
-            return false
+            notLoadedCount = notLoadedCount + 1
         end
     end
 
-    return true
+    -- TODO: HACK :(
+    return notLoadedCount < 2
 end
 
 local function Process(self, unitTargets)
