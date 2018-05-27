@@ -46,7 +46,7 @@ local function UnitNeedsRescuing(unit)
     else
         local x, y, z = spGetUnitPosition(unit)
         -- TODO: hardcoded area :(
-        return Distance({x,y,z}, safeAreaCenter) > 600
+        return Distance({x=x,y=y,z=z}, safeAreaCenter) > 600
     end
 end
 
