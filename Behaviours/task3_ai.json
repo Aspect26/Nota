@@ -15,7 +15,7 @@
 		"01BEzKDAQq0JmPJoIV7H2GMHTlyFqjmR": {
 			"height": 94,
 			"title": "store",
-			"width": 252,
+			"width": 472,
 			"x": 742,
 			"y": -88
 		},
@@ -63,7 +63,7 @@
 					"value": "unitTargets"
 				}, {
 					"name": "value",
-					"value": "nota_FLI.AcquireTargets()"
+					"value": "nota_FLI.AcquireTargets(core.MissionInfo().safeArea.center)"
 				}, {
 					"name": "scriptName",
 					"value": "store"
