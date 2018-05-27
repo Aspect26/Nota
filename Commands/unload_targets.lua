@@ -1,0 +1,133 @@
+function getInfo()
+	return {
+		onNoUnits = SUCCESS, -- instant success
+		tooltip = "Unload picked units in safe area",
+		parameterDefs = {
+            {
+                name = "safeArea",
+                variableType = "expression",
+                componentType = "editBox",
+                defaultValue = "nil",
+            },
+        }
+	}
+end
+
+-- GET SAFE AREA "core.MissionInfo().safeArea.center"
+
+-- speed-ups
+local spGetUnitPosition = Spring.GetUnitPosition
+local spGiveOrderToUnit = Spring.GiveOrderToUnit
+local spIsUnitDead = Spring.GetUnitIsDead
+
+local SAFE_AREA_DISTANCE_THRESHOLD = 500 -- TODO: this can bea read from the mission info too!
+
+local function ClearState(self)
+    self.units = nil
+    self.safeArea = nil
+    self.issuedMoveToSafeArea = false
+    self.allReachedSafeArea = false
+    self.issuedUnloading = false
+    end
+
+local function Distance(a, b)
+    if not a or not b then
+        -- magic constant
+        return 926232
+    end
+
+    local xSqr = (a.x - b.x) * (a.x - b.x)
+    local ySqr = (a.y - b.y) * (a.y - b.y)
+    local zSqr = (a.z - b.z) * (a.z - b.z)
+    return math.sqrt(xSqr + ySqr + zSqr)
+end
+
+local function IssueMoveOrders(self)
+    for i=1, #self.units do
+        local unit = self.units[i]
+        -- TODO: use pathfinding!!
+        spGiveOrderToUnit(unit, CMD.MOVE, { self.safeArea.x, self.safeArea.y, self.safeArea.z }, {})
+    end
+
+    self.issuedMoveToSafeArea = true
+end
+
+local function AllReachedSafeAreaOrDead(self)
+    if self.allReachedSafeArea then
+        return true
+    end
+
+    for i=1, #self.units do
+        local rescuer = self.units[i]
+        local rescuerX, rescuerY, rescuerZ = spGetUnitPosition(rescuer)
+        if not spIsUnitDead(rescuer) and Distance({x=rescuerX, y=rescuerY, z=rescuerZ}, self.safeArea) > SAFE_AREA_DISTANCE_THRESHOLD then
+            return false
+        end
+    end
+
+    self.allReachedSafeArea = true
+    return true
+end
+
+local function IssueUnloading(self)
+    for i=1, #self.units do
+        local rescuer = self.units[i]
+        spGiveOrderToUnit(rescuer, CMD.UNLOAD_UNITS, { self.safeArea.x, self.safeArea.y, self.safeArea.z, SAFE_AREA_DISTANCE_THRESHOLD }, {})
+    end
+
+    self.issuedUnloading = true
+end
+
+local function AllTargetsUnloaded(self)
+    for i=1, #self.units do
+        local rescuer = self.units[i]
+        Spring.Echo(Spring.GetUnitIsTransporting(rescuer))
+        if not spIsUnitDead(rescuer) and #Spring.GetUnitIsTransporting(rescuer) > 0 then
+            return false
+        end
+    end
+
+    return true
+end
+
+local function Process(self)
+    if not self.issuedMoveToSafeArea then
+        IssueMoveOrders(self)
+        return RUNNING
+    end
+
+    if not AllReachedSafeAreaOrDead(self) then
+        return RUNNING
+    end
+
+    if not self.issuedUnloading then
+        IssueUnloading(self)
+        return RUNNING
+    end
+
+    if not AllTargetsUnloaded(self) then
+        return RUNNING
+    end
+
+    return SUCCESS
+end
+
+function Run(self, units, params)
+    if #units == 0 then
+        return TRUE
+    end
+
+    if not params.safeArea then
+       return FAILURE
+    end
+
+    self.units = units
+    self.safeArea = params.safeArea
+
+    return Process(self)
+end
+
+
+function Reset(self)
+	ClearState(self)
+end

@@ -11,9 +11,98 @@
 		"name": "mapGraph"
 	} ],
 	"outputs": [],
-	"properties": [],
+	"properties": {
+		"01BEzKDAQq0JmPJoIV7H2GMHTlyFqjmR": {
+			"height": 94,
+			"title": "store",
+			"width": 252,
+			"x": 742,
+			"y": -88
+		},
+		"JnKhBzqyTDDDkNkCoONmUDrely0KGy7M": {
+			"height": 60,
+			"title": "sequence",
+			"width": 143,
+			"x": 529,
+			"y": 17
+		},
+		"LMntljVhZ4UELqYMrr6BH49d5LUYKVeS": {
+			"height": 70,
+			"title": "roleSplit",
+			"width": 202,
+			"x": 275,
+			"y": 13
+		},
+		"WLdBi0ZITGVla6xM3IsYSo1BUVlbxNPA": {
+			"height": 72,
+			"title": "nota_FLI.load_targets",
+			"width": 201,
+			"x": 749,
+			"y": 9
+		},
+		"sPgdtaOCPnM8ssXsJE6kK62YfHkCmt7G": {
+			"height": 74,
+			"title": "nota_FLI.unload_targets",
+			"width": 340,
+			"x": 748,
+			"y": 93
+		}
+	},
 	"roles": [ {
-		"categories": [],
-		"name": "Role 0"
-	} ]
+		"categories": [ "nota_FLI.atlas" ],
+		"name": "Atlas Role"
+	} ],
+	"root": {
+		"children": [ {
+			"children": [ {
+				"children": [],
+				"id": "01BEzKDAQq0JmPJoIV7H2GMHTlyFqjmR",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "var",
+					"value": "unitTargets"
+				}, {
+					"name": "value",
+					"value": "nota_FLI.AcquireTargets()"
+				}, {
+					"name": "scriptName",
+					"value": "store"
+				} ],
+				"scriptName": "store"
+			}, {
+				"children": [],
+				"id": "WLdBi0ZITGVla6xM3IsYSo1BUVlbxNPA",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "unitTargets",
+					"value": "unitTargets"
+				}, {
+					"name": "scriptName",
+					"value": "nota_FLI.load_targets"
+				} ],
+				"scriptName": "nota_FLI.load_targets"
+			}, {
+				"children": [],
+				"id": "sPgdtaOCPnM8ssXsJE6kK62YfHkCmt7G",
+				"nodeType": "luaCommand",
+				"parameters": [ {
+					"name": "safeArea",
+					"value": "core.MissionInfo().safeArea.center"
+				}, {
+					"name": "scriptName",
+					"value": "nota_FLI.unload_targets"
+				} ],
+				"scriptName": "nota_FLI.unload_targets"
+			} ],
+			"id": "JnKhBzqyTDDDkNkCoONmUDrely0KGy7M",
+			"nodeType": "sequence",
+			"parameters": []
+		} ],
+		"id": "LMntljVhZ4UELqYMrr6BH49d5LUYKVeS",
+		"nodeType": "roleSplit",
+		"parameters": [ {
+			"name": "mode",
+			"value": "any-success"
+		} ]
+	}
 }

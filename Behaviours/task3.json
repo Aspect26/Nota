@@ -1,18 +1,5 @@
 {
-	"additionalNodes": [ {
-		"children": [],
-		"id": "34jCjKpo6xuMoG3S7RYUXFgarMoRzNlv",
-		"nodeType": "reference",
-		"parameters": [ {
-			"name": "behaviourName",
-			"value": "nota_FLI.task3_ai"
-		} ],
-		"referenceInputs": [ {
-			"name": "mapGraph",
-			"value": "mapGraph"
-		} ],
-		"referenceOutputs": []
-	} ],
+	"additionalNodes": [],
 	"additionalParameters": {
 		"root": {
 			"height": 88,
@@ -22,13 +9,6 @@
 	"inputs": [],
 	"outputs": [],
 	"properties": {
-		"34jCjKpo6xuMoG3S7RYUXFgarMoRzNlv": {
-			"height": 130,
-			"title": "reference",
-			"width": 203,
-			"x": 472,
-			"y": 206
-		},
 		"9hMQIUGCsitcwxBslORuy3rjVLzo0ZTh": {
 			"height": 60,
 			"title": "sequence",
@@ -36,12 +16,12 @@
 			"x": 227,
 			"y": 10
 		},
-		"L2c8uhVPv6FC9Y3al2yMyb1R3yKYxIxD": {
-			"height": 60,
-			"title": "repeat",
-			"width": 131,
-			"x": 479,
-			"y": 123
+		"RevtTfPZUbgK9UtpVgwxZ5ZzMiMi6xql": {
+			"height": 94,
+			"title": "store",
+			"width": 228,
+			"x": 468,
+			"y": 155
 		},
 		"WfHx4kqtLLexMbePJs4h6WKQ6W6H5EeH": {
 			"height": 131,
@@ -49,11 +29,25 @@
 			"width": 251,
 			"x": 441,
 			"y": -127
+		},
+		"eEyzdj4HLa7iz11V2b2XjLymeCrHkRGu": {
+			"height": 60,
+			"title": "repeat",
+			"width": 131,
+			"x": 406,
+			"y": 19
+		},
+		"uLYg8aTtuIa5LWJ8cXBTZstJBQPv3TGt": {
+			"height": 130,
+			"title": "reference",
+			"width": 203,
+			"x": 580,
+			"y": 12
 		}
 	},
 	"roles": [ {
-		"categories": [],
-		"name": "Role 0"
+		"categories": [ "nota_FLI.atlas" ],
+		"name": "atlases"
 	} ],
 	"root": {
 		"children": [ {
@@ -70,10 +64,38 @@
 				"value": "mapGraph"
 			} ]
 		}, {
-			"children": [],
-			"id": "L2c8uhVPv6FC9Y3al2yMyb1R3yKYxIxD",
+			"children": [ {
+				"children": [],
+				"id": "uLYg8aTtuIa5LWJ8cXBTZstJBQPv3TGt",
+				"nodeType": "reference",
+				"parameters": [ {
+					"name": "behaviourName",
+					"value": "nota_FLI.task3_ai"
+				} ],
+				"referenceInputs": [ {
+					"name": "mapGraph",
+					"value": "mapGraph"
+				} ],
+				"referenceOutputs": []
+			} ],
+			"id": "eEyzdj4HLa7iz11V2b2XjLymeCrHkRGu",
 			"nodeType": "repeat",
 			"parameters": []
+		}, {
+			"children": [],
+			"id": "RevtTfPZUbgK9UtpVgwxZ5ZzMiMi6xql",
+			"nodeType": "luaCommand",
+			"parameters": [ {
+				"name": "var",
+				"value": "x"
+			}, {
+				"name": "value",
+				"value": "nota_FLI.EndMission()"
+			}, {
+				"name": "scriptName",
+				"value": "store"
+			} ],
+			"scriptName": "store"
 		} ],
 		"id": "9hMQIUGCsitcwxBslORuy3rjVLzo0ZTh",
 		"nodeType": "sequence",

@@ -1,7 +1,7 @@
 function getInfo()
 	return {
 		onNoUnits = SUCCESS, -- instant success
-		tooltip = "Move to defined position",
+		tooltip = "Acquire targets for picking units",
 		parameterDefs = {
 			{ 
 				name = "position",
@@ -24,10 +24,6 @@ function getInfo()
 		}
 	}
 end
-
--- constants
-local THRESHOLD_STEP = 25
-local THRESHOLD_DEFAULT = 0
 
 -- speed-ups
 local SpringGetUnitPosition = Spring.GetUnitPosition
