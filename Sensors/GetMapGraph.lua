@@ -14,7 +14,6 @@ attach.Module(modules, "message") -- communication backend load
 
 local EVAL_PERIOD_DEFAULT = 0 -- acutal, no caching
 local SAMPLE_SIZE = 100
-local DEBUG = false
 
 function getInfo()
 	return {
@@ -139,9 +138,7 @@ local function setEdges(graph)
 end
 
 local function debugWidgetDraw(mapGraph)
-    if DEBUG and Script.LuaUI('mapGraphDebug_update') then
-        Script.LuaUI.mapGraphDebug_update(mapGraph)
-    end
+    Script.LuaUI.mapGraphDebug_update(mapGraph)
 end
 
 return function()
