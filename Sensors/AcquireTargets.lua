@@ -22,7 +22,7 @@ function getInfo()
     }
 end
 
-local nonRescuableUnits = { armatlas = true, armpeep = true, armwin = true }
+local nonRescuableUnits = { armatlas = true, armpeep = true, armwin = true, armrad = true }
 local safeAreaCenter = {}
 
 local function Distance(a, b)

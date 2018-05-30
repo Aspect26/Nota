@@ -14,7 +14,7 @@ end
 -- @description return current wind statistics
 return function()
     message.SendRules({
-        subject = "CTP_playerTriggeredGameEnd",
+        subject = "manualMissionEnd",
         data = {},
     })
 end

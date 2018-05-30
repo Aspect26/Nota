@@ -21,7 +21,7 @@ local spGiveOrderToUnit = Spring.GiveOrderToUnit
 local spIsUnitDead = Spring.GetUnitIsDead
 
 local SAFE_AREA_DISTANCE_THRESHOLD = 500 -- TODO: this can bea read from the mission info too!
-local UNLOADING_WAIT_CYCLES = 10
+local UNLOADING_WAIT_CYCLES = 5
 
 local function ClearState(self)
     self.units = nil

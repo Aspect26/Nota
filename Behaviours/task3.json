@@ -16,6 +16,13 @@
 			"x": 227,
 			"y": 10
 		},
+		"AWZnJgWgavCqHV5Gkzkexk9zzBucDo3c": {
+			"height": 54,
+			"title": "success",
+			"width": 132,
+			"x": 1036,
+			"y": 111
+		},
 		"RevtTfPZUbgK9UtpVgwxZ5ZzMiMi6xql": {
 			"height": 94,
 			"title": "store",
@@ -34,15 +41,22 @@
 			"height": 60,
 			"title": "repeat",
 			"width": 131,
-			"x": 406,
-			"y": 19
+			"x": 1010,
+			"y": -11
+		},
+		"kaSYM64i80zC0GHt6i168iqIpboG5g9Z": {
+			"height": 90,
+			"title": "luaCondition",
+			"width": 432,
+			"x": 443,
+			"y": 14
 		},
 		"uLYg8aTtuIa5LWJ8cXBTZstJBQPv3TGt": {
 			"height": 130,
 			"title": "reference",
 			"width": 203,
-			"x": 580,
-			"y": 12
+			"x": 1316,
+			"y": -37
 		}
 	},
 	"roles": [ {
@@ -65,22 +79,38 @@
 			} ]
 		}, {
 			"children": [ {
+				"children": [ {
+					"children": [],
+					"id": "uLYg8aTtuIa5LWJ8cXBTZstJBQPv3TGt",
+					"nodeType": "reference",
+					"parameters": [ {
+						"name": "behaviourName",
+						"value": "nota_FLI.task3_ai"
+					} ],
+					"referenceInputs": [ {
+						"name": "mapGraph",
+						"value": "mapGraph"
+					} ],
+					"referenceOutputs": []
+				} ],
+				"id": "eEyzdj4HLa7iz11V2b2XjLymeCrHkRGu",
+				"nodeType": "repeat",
+				"parameters": []
+			}, {
 				"children": [],
-				"id": "uLYg8aTtuIa5LWJ8cXBTZstJBQPv3TGt",
-				"nodeType": "reference",
-				"parameters": [ {
-					"name": "behaviourName",
-					"value": "nota_FLI.task3_ai"
-				} ],
-				"referenceInputs": [ {
-					"name": "mapGraph",
-					"value": "mapGraph"
-				} ],
-				"referenceOutputs": []
+				"id": "AWZnJgWgavCqHV5Gkzkexk9zzBucDo3c",
+				"nodeType": "success",
+				"parameters": []
 			} ],
-			"id": "eEyzdj4HLa7iz11V2b2XjLymeCrHkRGu",
-			"nodeType": "repeat",
-			"parameters": []
+			"id": "kaSYM64i80zC0GHt6i168iqIpboG5g9Z",
+			"nodeType": "luaCondition",
+			"parameters": [ {
+				"name": "expression",
+				"value": "core.MissionInfo().score < 100"
+			}, {
+				"name": "repeat",
+				"value": "true"
+			} ]
 		}, {
 			"children": [],
 			"id": "RevtTfPZUbgK9UtpVgwxZ5ZzMiMi6xql",
